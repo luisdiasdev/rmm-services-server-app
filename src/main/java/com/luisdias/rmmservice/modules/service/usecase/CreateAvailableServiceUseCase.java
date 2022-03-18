@@ -5,7 +5,7 @@ import com.luisdias.rmmservice.modules.service.entity.AvailableService;
 import com.luisdias.rmmservice.modules.service.entity.AvailableServicePricingPolicy;
 import com.luisdias.rmmservice.modules.service.repository.AvailableServicePricingPolicyRepository;
 import com.luisdias.rmmservice.modules.service.repository.AvailableServiceRepository;
-import com.luisdias.rmmservice.modules.shared.OperatingSystem;
+import com.luisdias.rmmservice.modules.shared.enums.OperatingSystem;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;

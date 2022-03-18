@@ -1,14 +1,20 @@
 package com.luisdias.rmmservice.modules.service.entity;
 
+import com.luisdias.rmmservice.modules.shared.enums.OperatingSystem;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "available_service")
+@Table(name = "available_service",
+        uniqueConstraints = {
+                @UniqueConstraint(name = "uk_available_service_name", columnNames = {"name"})
+        })
 public class AvailableService {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "avail_serv_id_seq")
+    @SequenceGenerator(name = "avail_serv_id_seq", sequenceName = "avail_serv_id_seq", allocationSize = 1)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -18,7 +24,7 @@ public class AvailableService {
     @Column(name = "description")
     private String description;
 
-    @OneToMany(mappedBy = "availableService")
+    @OneToMany(mappedBy = "availableService", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AvailableServicePricingPolicy> pricingPolicies = new ArrayList<>();
 
     public List<AvailableServicePricingPolicy> getPricingPolicies() {
@@ -51,5 +57,10 @@ public class AvailableService {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public boolean hasPolicyForOperatingSystem(OperatingSystem operatingSystem) {
+        return this.getPricingPolicies()
+                .stream().anyMatch(policy -> policy.getOperatingSystem().equals(operatingSystem));
     }
 }

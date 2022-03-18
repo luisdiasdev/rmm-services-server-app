@@ -9,10 +9,16 @@ spring:
     show-sql: true
     database-platform: org.hibernate.dialect.PostgreSQL10Dialect
     hibernate:
-      ddl-auto: update
-  flyway:
-    enabled: false
+      ddl-auto: none
+
 springdoc:
   api-docs:
     path: /api-docs
 
+app:
+  security:
+    jwt:
+      secret: ${JWT_SECRET:WPQ9QzZSDZYY44/Mg7PCtN+NyAIpVS5M6H+97aRmis3BY+jJMJlD34WrHmGLcx7ij+BKdDwtAL5n/DbwYRmE3g==}
+      signing-algorithm: HS512
+      token-issuer: rmm-service
+      token-audience: rmm-service
