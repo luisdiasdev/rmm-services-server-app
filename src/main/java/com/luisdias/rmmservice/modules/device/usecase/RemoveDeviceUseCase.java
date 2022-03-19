@@ -5,6 +5,8 @@ import com.luisdias.rmmservice.modules.shared.exception.EntityNotFoundException;
 import com.luisdias.rmmservice.modules.shared.service.AuthenticationService;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class RemoveDeviceUseCase {
 
@@ -16,6 +18,7 @@ public class RemoveDeviceUseCase {
         this.deviceRepository = deviceRepository;
     }
 
+    @Transactional
     public void remove(Long id) {
         this.deviceRepository.findByIdAndCustomerId(id, authenticationService.getAuthenticatedUserId())
                 .orElseThrow(() -> new EntityNotFoundException("Device"));

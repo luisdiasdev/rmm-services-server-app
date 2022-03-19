@@ -4,6 +4,7 @@ import com.luisdias.rmmservice.infra.security.JwtTokenGenerator;
 import com.luisdias.rmmservice.modules.customer.entity.Customer;
 import com.luisdias.rmmservice.modules.shared.api.request.LoginRequest;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.tags.Tags;
 import org.springframework.http.HttpHeaders;
@@ -22,7 +23,7 @@ import static com.luisdias.rmmservice.infra.security.SecurityConstants.AUTH_LOGI
 
 @RestController
 @RequestMapping(AUTH_LOGIN_URL)
-@Tags({@Tag(name = "login"), @Tag(name = "public")})
+@Tag(name = "public", description = "Public endpoints")
 public class LoginApi {
 
     private final AuthenticationManager authenticationManager;
@@ -34,7 +35,8 @@ public class LoginApi {
     }
 
     @PostMapping
-    @Operation(security = {})
+    @Operation(summary = "Authenticates the customer")
+    @SecurityRequirements
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
             Authentication authentication = authenticationManager.authenticate(

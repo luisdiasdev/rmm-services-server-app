@@ -16,4 +16,6 @@ public interface CustomerServiceRepository extends CrudRepository<CustomerServic
             type = EntityGraph.EntityGraphType.FETCH,
             attributePaths = {"service", "service.pricingPolicies"})
     List<CustomerService> findAllByCustomerId(Long customerId);
+
+    Integer deleteByIdAndCustomerId(Long id, Long customerId);
 }
