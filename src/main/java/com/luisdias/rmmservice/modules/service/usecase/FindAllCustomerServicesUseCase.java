@@ -20,6 +20,6 @@ public class FindAllCustomerServicesUseCase {
     }
 
     public List<CustomerService> findAll() {
-        return customerServiceRepository.findAllByCustomerId(authenticationService.getAuthenticatedUserId());
+        return customerServiceRepository.findAllByCustomerId(authenticationService.getAuthenticatedCustomerId());
     }
 }

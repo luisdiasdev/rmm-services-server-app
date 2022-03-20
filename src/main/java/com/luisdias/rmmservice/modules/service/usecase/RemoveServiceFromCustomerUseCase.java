@@ -21,7 +21,7 @@ public class RemoveServiceFromCustomerUseCase {
 
     @Transactional
     public void remove(Long id) {
-        var customerId = authenticationService.getAuthenticatedUserId();
+        var customerId = authenticationService.getAuthenticatedCustomerId();
         if (!this.customerServiceRepository.existsByCustomerIdAndServiceId(customerId, id)) {
             throw new EntityNotFoundException("Customer Service");
         }

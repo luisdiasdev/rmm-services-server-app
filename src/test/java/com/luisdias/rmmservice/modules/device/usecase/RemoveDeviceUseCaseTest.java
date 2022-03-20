@@ -32,7 +32,7 @@ class RemoveDeviceUseCaseTest {
                 authenticationService,
                 deviceRepository);
 
-        when(authenticationService.getAuthenticatedUserId())
+        when(authenticationService.getAuthenticatedCustomerId())
                 .thenReturn(authenticatedCustomerId);
 
         when(deviceRepository.findByIdAndCustomerId(eq(validDeviceId), eq(authenticatedCustomerId)))

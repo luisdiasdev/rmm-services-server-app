@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -29,8 +30,10 @@ public class CustomerApi {
     @Tag(name = "public")
     @Operation(summary = "Creates a new customer")
     @SecurityRequirements
-    public void create(@RequestBody CreateCustomerRequest request) {
-        createCustomerUseCase.create(request);
+    public ResponseEntity<?> create(@RequestBody CreateCustomerRequest request) {
+        var customerId = createCustomerUseCase.create(request);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(customerId);
     }
 
     @GetMapping("{id}/bill")

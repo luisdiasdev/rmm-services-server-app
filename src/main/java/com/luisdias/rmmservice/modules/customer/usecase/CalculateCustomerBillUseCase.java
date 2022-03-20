@@ -36,7 +36,7 @@ public class CalculateCustomerBillUseCase {
     }
 
     public CustomerBillResponse calculateBill(Long customerId) {
-        if (!Objects.equals(authenticationService.getAuthenticatedUserId(), customerId)) {
+        if (!Objects.equals(authenticationService.getAuthenticatedCustomerId(), customerId)) {
             throw new UnauthorizedException();
         }
         var devices = findAllDevicesUseCase.findAll();
@@ -44,7 +44,9 @@ public class CalculateCustomerBillUseCase {
         var pricesByOperatingSystem = calculatePricesByOperatingSystem(customerServices);
         var operatingSystemSpecificCost = calculateOperatingSystemSpecificCost(devices, pricesByOperatingSystem);
         var remainingCost = calculateOperatingSystemIndependentCost(
-                (long) devices.size(), getDevicePriceUseCase.getPrice(), pricesByOperatingSystem.get(OperatingSystem.ALL));
+                (long) devices.size(),
+                getDevicePriceUseCase.getPrice(),
+                pricesByOperatingSystem.getOrDefault(OperatingSystem.ALL, 0L));
 
         return new CustomerBillResponse(operatingSystemSpecificCost + remainingCost);
     }

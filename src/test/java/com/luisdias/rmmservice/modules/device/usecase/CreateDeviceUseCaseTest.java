@@ -32,7 +32,7 @@ class CreateDeviceUseCaseTest {
                 deviceRepository,
                 findCustomerByIdUseCase);
 
-        when(authenticationService.getAuthenticatedUserId())
+        when(authenticationService.getAuthenticatedCustomerId())
                 .thenReturn(authenticatedCustomerId);
         when(findCustomerByIdUseCase.findById(eq(authenticatedCustomerId)))
                 .thenReturn(new Customer());

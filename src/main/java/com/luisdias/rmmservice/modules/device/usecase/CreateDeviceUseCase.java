@@ -30,7 +30,7 @@ public class CreateDeviceUseCase {
         Device device = new Device();
         device.setOperatingSystem(request.getOperatingSystem());
         device.setSystemName(request.getSystemName());
-        device.setCustomer(findCustomerByIdUseCase.findById(authenticationService.getAuthenticatedUserId()));
+        device.setCustomer(findCustomerByIdUseCase.findById(authenticationService.getAuthenticatedCustomerId()));
         deviceRepository.save(device);
         return device.toResponse();
     }

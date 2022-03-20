@@ -5,24 +5,24 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
 
-public class AuthenticatedUser {
+public class AuthenticatedCustomer {
 
-    private Long userId;
+    private Long customerId;
     private String username;
     private Collection<GrantedAuthority> roles;
 
-    public AuthenticatedUser(JwtUserToken authentication) {
+    public AuthenticatedCustomer(JwtUserToken authentication) {
         this.username = authentication.getName();
-        this.userId = authentication.getUserId();
+        this.customerId = authentication.getUserId();
         this.roles = authentication.getAuthorities();
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getCustomerId() {
+        return customerId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setCustomerId(Long customerId) {
+        this.customerId = customerId;
     }
 
     public String getUsername() {

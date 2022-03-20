@@ -20,8 +20,8 @@ public class RemoveDeviceUseCase {
 
     @Transactional
     public void remove(Long id) {
-        this.deviceRepository.findByIdAndCustomerId(id, authenticationService.getAuthenticatedUserId())
+        this.deviceRepository.findByIdAndCustomerId(id, authenticationService.getAuthenticatedCustomerId())
                 .orElseThrow(() -> new EntityNotFoundException("Device"));
-        this.deviceRepository.deleteByIdAndCustomerId(id, authenticationService.getAuthenticatedUserId());
+        this.deviceRepository.deleteByIdAndCustomerId(id, authenticationService.getAuthenticatedCustomerId());
     }
 }

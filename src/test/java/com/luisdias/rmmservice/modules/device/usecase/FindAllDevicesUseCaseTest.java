@@ -28,7 +28,7 @@ class FindAllDevicesUseCaseTest {
                 authenticationService,
                 deviceRepository);
 
-        when(authenticationService.getAuthenticatedUserId())
+        when(authenticationService.getAuthenticatedCustomerId())
                 .thenReturn(authenticatedCustomerId);
 
         when(deviceRepository.findAllByCustomerId(eq(authenticatedCustomerId)))

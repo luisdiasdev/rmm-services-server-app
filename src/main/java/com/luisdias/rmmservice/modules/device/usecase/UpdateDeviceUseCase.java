@@ -23,7 +23,7 @@ public class UpdateDeviceUseCase {
     @Transactional
     public DeviceResponse update(Long id, CreateUpdateDeviceRequest request) {
         var device = this.deviceRepository
-                .findByIdAndCustomerId(id, authenticationService.getAuthenticatedUserId())
+                .findByIdAndCustomerId(id, authenticationService.getAuthenticatedCustomerId())
                 .orElseThrow(() -> new EntityNotFoundException("Device"));
         device.setSystemName(request.getSystemName());
         device.setOperatingSystem(request.getOperatingSystem());

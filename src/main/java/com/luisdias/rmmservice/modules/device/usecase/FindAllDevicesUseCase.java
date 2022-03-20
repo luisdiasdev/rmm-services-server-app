@@ -22,7 +22,7 @@ public class FindAllDevicesUseCase {
     }
 
     public List<DeviceResponse> findAll() {
-        return deviceRepository.findAllByCustomerId(authenticationService.getAuthenticatedUserId())
+        return deviceRepository.findAllByCustomerId(authenticationService.getAuthenticatedCustomerId())
                 .stream()
                 .map(Device::toResponse)
                 .collect(Collectors.toList());

@@ -32,13 +32,13 @@ public class AddServiceToCustomerUseCase {
 
     @Transactional
     public Long add(AddServiceToCustomerRequest request) {
-        if (!Objects.equals(request.getCustomerId(), authenticationService.getAuthenticatedUserId())) {
+        if (!Objects.equals(request.getCustomerId(), authenticationService.getAuthenticatedCustomerId())) {
             throw new UnauthorizedException();
         }
         if (customerServiceRepository.existsByCustomerIdAndServiceId(request.getCustomerId(), request.getServiceId())) {
             throw new ValidationException("Service already registered for the customer");
         }
-        var customer = findCustomerByIdUseCase.findById(authenticationService.getAuthenticatedUserId());
+        var customer = findCustomerByIdUseCase.findById(authenticationService.getAuthenticatedCustomerId());
         var service = findAvailableServiceByIdUseCase.findById(request.getServiceId());
         var customerService = new CustomerService(customer, service);
         customerServiceRepository.save(customerService);

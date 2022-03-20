@@ -41,7 +41,7 @@ class CalculateCustomerBillUseCaseTest {
                 findAllCustomerServicesUseCase,
                 getDevicePriceUseCase);
 
-        when(authenticationService.getAuthenticatedUserId())
+        when(authenticationService.getAuthenticatedCustomerId())
                 .thenReturn(authenticatedCustomerId);
 
         when(findAllDevicesUseCase.findAll())

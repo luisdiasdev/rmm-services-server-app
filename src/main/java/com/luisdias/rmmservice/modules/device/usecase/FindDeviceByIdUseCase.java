@@ -20,7 +20,7 @@ public class FindDeviceByIdUseCase {
     }
 
     public DeviceResponse findById(Long id) {
-        return this.deviceRepository.findByIdAndCustomerId(id, authenticationService.getAuthenticatedUserId())
+        return this.deviceRepository.findByIdAndCustomerId(id, authenticationService.getAuthenticatedCustomerId())
                 .map(Device::toResponse)
                 .orElseThrow(() -> new EntityNotFoundException("Device"));
     }

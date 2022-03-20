@@ -1,0 +1,37 @@
+package com.luisdias.rmmservice.support;
+
+import com.luisdias.rmmservice.support.client.CustomerClient;
+import com.luisdias.rmmservice.support.client.DeviceClient;
+import com.luisdias.rmmservice.support.client.LoginClient;
+import com.luisdias.rmmservice.support.client.ServiceClient;
+import org.springframework.boot.test.context.TestConfiguration;
+import org.springframework.context.annotation.Bean;
+
+@TestConfiguration
+public class TestContextConfiguration {
+
+    @Bean
+    public LocalServerResolver localPortHolder() {
+        return new LocalServerResolver();
+    }
+
+    @Bean
+    public LoginClient loginClient() {
+        return new LoginClient();
+    }
+
+    @Bean
+    public CustomerClient customerClient() {
+        return new CustomerClient();
+    }
+
+    @Bean
+    public ServiceClient serviceClient() {
+        return new ServiceClient();
+    }
+
+    @Bean
+    public DeviceClient deviceClient() {
+        return new DeviceClient();
+    }
+}
