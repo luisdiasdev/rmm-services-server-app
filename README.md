@@ -10,7 +10,7 @@ This project aims to build a simple REST API to manage a Remote Monitoring and M
 
 - Docker
 - docker-compose
-- Java 11
+- Java 11 JDK
 
 ### Running the application
 

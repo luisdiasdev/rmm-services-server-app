@@ -5,8 +5,6 @@ import com.luisdias.rmmservice.modules.service.repository.AvailableServiceReposi
 import com.luisdias.rmmservice.modules.shared.exception.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class FindAvailableServiceByIdUseCase {
 

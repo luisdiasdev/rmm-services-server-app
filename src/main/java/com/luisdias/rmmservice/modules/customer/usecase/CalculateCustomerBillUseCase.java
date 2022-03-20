@@ -4,7 +4,6 @@ import com.luisdias.rmmservice.modules.customer.api.response.CustomerBillRespons
 import com.luisdias.rmmservice.modules.device.api.response.DeviceResponse;
 import com.luisdias.rmmservice.modules.device.usecase.FindAllDevicesUseCase;
 import com.luisdias.rmmservice.modules.device.usecase.GetDevicePriceUseCase;
-import com.luisdias.rmmservice.modules.service.entity.AvailableService;
 import com.luisdias.rmmservice.modules.service.entity.AvailableServicePricingPolicy;
 import com.luisdias.rmmservice.modules.service.entity.CustomerService;
 import com.luisdias.rmmservice.modules.service.usecase.FindAllCustomerServicesUseCase;
@@ -78,12 +77,4 @@ public class CalculateCustomerBillUseCase {
                 )
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Long::sum));
     }
-
-    private List<Long> getCustomerServicesIds(List<CustomerService> customerServices) {
-        return customerServices.stream()
-                .map(CustomerService::getService)
-                .map(AvailableService::getId)
-                .collect(Collectors.toList());
-    }
-
 }

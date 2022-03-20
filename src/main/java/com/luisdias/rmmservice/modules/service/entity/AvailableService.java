@@ -1,7 +1,5 @@
 package com.luisdias.rmmservice.modules.service.entity;
 
-import com.luisdias.rmmservice.modules.shared.enums.OperatingSystem;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,10 +55,5 @@ public class AvailableService {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public boolean hasPolicyForOperatingSystem(OperatingSystem operatingSystem) {
-        return this.getPricingPolicies()
-                .stream().anyMatch(policy -> policy.getOperatingSystem().equals(operatingSystem));
     }
 }
