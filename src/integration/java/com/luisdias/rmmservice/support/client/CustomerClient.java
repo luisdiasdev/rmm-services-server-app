@@ -4,11 +4,14 @@ import com.luisdias.rmmservice.modules.customer.api.request.CreateCustomerReques
 import com.luisdias.rmmservice.modules.customer.api.response.CustomerBillResponse;
 import com.luisdias.rmmservice.support.AuthorizationHeaderHelper;
 import com.luisdias.rmmservice.support.LocalServerResolver;
+import com.luisdias.rmmservice.support.RestTemplateErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+
+import javax.annotation.PostConstruct;
 
 public class CustomerClient {
 

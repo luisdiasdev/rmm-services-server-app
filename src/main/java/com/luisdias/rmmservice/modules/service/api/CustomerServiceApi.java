@@ -1,6 +1,7 @@
 package com.luisdias.rmmservice.modules.service.api;
 
 import com.luisdias.rmmservice.modules.service.api.request.AddServiceToCustomerRequest;
+import com.luisdias.rmmservice.modules.service.api.request.CustomerServiceResponse;
 import com.luisdias.rmmservice.modules.service.entity.CustomerService;
 import com.luisdias.rmmservice.modules.service.usecase.AddServiceToCustomerUseCase;
 import com.luisdias.rmmservice.modules.service.usecase.FindAllCustomerServicesUseCase;
@@ -13,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("v1/services")
@@ -33,8 +35,11 @@ public class CustomerServiceApi {
 
     @GetMapping
     @Operation(summary = "Gets all services registered in the customer account")
-    public List<CustomerService> getAll() {
-        return findAllCustomerServicesUseCase.findAll();
+    public List<CustomerServiceResponse> getAll() {
+        return findAllCustomerServicesUseCase.findAll()
+                .stream()
+                .map(CustomerService::toResponse)
+                .collect(Collectors.toList());
     }
 
     @PostMapping

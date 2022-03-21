@@ -1,21 +1,24 @@
 package com.luisdias.rmmservice.modules.customer;
 
 import com.luisdias.rmmservice.modules.customer.api.request.CreateCustomerRequest;
+import com.luisdias.rmmservice.modules.customer.api.response.CustomerBillResponse;
 import com.luisdias.rmmservice.modules.device.api.request.CreateUpdateDeviceRequest;
 import com.luisdias.rmmservice.modules.service.api.request.AddServiceToCustomerRequest;
 import com.luisdias.rmmservice.modules.shared.enums.OperatingSystem;
-import com.luisdias.rmmservice.support.AbstractIT;
+import com.luisdias.rmmservice.support.AbstractIntegrationTest;
 import com.luisdias.rmmservice.support.data.AvailableServices;
 import com.luisdias.rmmservice.support.data.Customers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.HttpClientErrorException;
 
 import static com.luisdias.rmmservice.support.JwtTokenExtractor.extractJwtTokenFromResponse;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
-public class CustomerIntegrationTest extends AbstractIT {
+public class CustomerIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     @DisplayName("should not allow to calculate bill for another customer")
@@ -25,8 +28,24 @@ public class CustomerIntegrationTest extends AbstractIT {
 
         // Calculate Monthly Bill for another customer
         var anotherCustomerId = Customers.Existing.ID + 25;
-        ResponseEntity<?> response = customerClient.calculateMonthlyBill(jwtToken, anotherCustomerId);
-        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.UNAUTHORIZED);
+
+        assertThatExceptionOfType(HttpClientErrorException.class)
+                .isThrownBy(() -> customerClient.calculateMonthlyBill(jwtToken, anotherCustomerId))
+                .extracting("statusCode")
+                .isEqualTo(HttpStatus.UNAUTHORIZED);
+    }
+
+    @Test
+    @DisplayName("should calculate monthly bill of existing customer")
+    void calculateBillExistingCustomer() {
+        var jwtToken = extractJwtTokenFromResponse(
+                loginClient.doLogin(Customers.Existing.USERNAME, Customers.Existing.PASSWORD));
+
+        ResponseEntity<CustomerBillResponse> response = customerClient.calculateMonthlyBill(jwtToken, Customers.Existing.ID);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(response.getBody())
+                .extracting(CustomerBillResponse::getCostInCents)
+                .isEqualTo(7100L);
     }
 
     @Test

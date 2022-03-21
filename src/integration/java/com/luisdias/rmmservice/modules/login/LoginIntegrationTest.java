@@ -1,6 +1,6 @@
 package com.luisdias.rmmservice.modules.login;
 
-import com.luisdias.rmmservice.support.AbstractIT;
+import com.luisdias.rmmservice.support.AbstractIntegrationTest;
 import com.luisdias.rmmservice.support.data.Customers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class LoginIntegrationTest extends AbstractIT {
+public class LoginIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     @DisplayName("should return forbidden when trying to login with bad credentials")

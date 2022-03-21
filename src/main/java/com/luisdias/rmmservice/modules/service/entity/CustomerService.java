@@ -1,6 +1,7 @@
 package com.luisdias.rmmservice.modules.service.entity;
 
 import com.luisdias.rmmservice.modules.customer.entity.Customer;
+import com.luisdias.rmmservice.modules.service.api.request.CustomerServiceResponse;
 
 import javax.persistence.*;
 
@@ -54,5 +55,9 @@ public class CustomerService {
 
     public void setService(AvailableService service) {
         this.service = service;
+    }
+
+    public CustomerServiceResponse toResponse() {
+        return new CustomerServiceResponse(this.getCustomer().getId(), this.getService().getId());
     }
 }

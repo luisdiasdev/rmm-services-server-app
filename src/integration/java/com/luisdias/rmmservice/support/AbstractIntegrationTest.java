@@ -7,18 +7,11 @@ import com.luisdias.rmmservice.support.client.LoginClient;
 import com.luisdias.rmmservice.support.client.ServiceClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.ActiveProfiles;
 
 @ActiveProfiles(ApplicationProfiles.INTEGRATION_TEST)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT, classes = {TestContextConfiguration.class})
-public abstract class AbstractIT {
-
-    @Autowired
-    protected LocalServerResolver localServerResolver;
-
-    @Autowired
-    protected TestRestTemplate testRestTemplate;
+public abstract class AbstractIntegrationTest {
 
     @Autowired
     protected LoginClient loginClient;
