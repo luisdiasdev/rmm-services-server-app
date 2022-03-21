@@ -4,9 +4,9 @@ import com.luisdias.rmmservice.modules.shared.api.request.LoginRequest;
 import com.luisdias.rmmservice.support.LocalServerResolver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.*;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 
 public class LoginClient {
 
@@ -21,13 +21,5 @@ public class LoginClient {
         requestBody.setPassword(password);
         return testRestTemplate.exchange(String.format("%s/v1/login", localServerResolver.getLocalURL()), HttpMethod.POST,
                 new HttpEntity<>(requestBody), Object.class);
-
-//        assertThat(response.getStatusCode())
-//                .isEqualTo(HttpStatus.OK);
-//        assertThat(response.getHeaders().getOrEmpty(HttpHeaders.AUTHORIZATION))
-//                .isNotEmpty();
-//        var authHeader = response.getHeaders().get(HttpHeaders.AUTHORIZATION).get(0);
-//        assertThat(authHeader).startsWith("Bearer ");
-//        return authHeader.split(" ")[1].trim();
     }
 }

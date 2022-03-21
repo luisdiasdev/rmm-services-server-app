@@ -40,7 +40,7 @@ public class ServiceClient {
 
     public ResponseEntity<?> deleteServiceById(String jwtToken, Long customerServiceId) {
         return testRestTemplate.exchange(
-                String.format("%s%s/{id}", localServerResolver.getLocalURL(), SERVICES_API),
+                String.format("%s%s/{serviceId}", localServerResolver.getLocalURL(), SERVICES_API),
                 HttpMethod.DELETE,
                 new HttpEntity<>(AuthorizationHeaderHelper.getHeaders(jwtToken)),
                 Object.class,

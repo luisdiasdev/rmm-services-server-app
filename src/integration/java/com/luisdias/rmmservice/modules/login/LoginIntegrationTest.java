@@ -7,18 +7,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.ResourceAccessException;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 
 public class LoginIntegrationTest extends AbstractIntegrationTest {
 
     @Test
     @DisplayName("should return forbidden when trying to login with bad credentials")
     void loginForbidden() {
-        ResponseEntity<?> response = loginClient.doLogin(Customers.Existing.USERNAME, "somepassword");
-
-        assertThat(response.getStatusCode())
-                .isEqualTo(HttpStatus.FORBIDDEN);
+        assertThatExceptionOfType(ResourceAccessException.class)
+                .isThrownBy(() -> loginClient.doLogin(Customers.Existing.USERNAME, "somepassword"))
+                .withMessageContaining("HTTP response code: 403");
     }
 
     @Test
